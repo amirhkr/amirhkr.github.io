@@ -582,6 +582,43 @@ nav .container {
   line-height: 1.7;
 }
 
+.timeline-desc ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timeline-desc li {
+  padding-left: 16px;
+  position: relative;
+}
+
+.timeline-desc li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 1px;
+  background: #0d9488;
+}
+
+.timeline-project-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0d9488;
+  margin: 10px 0 6px;
+  letter-spacing: 0.02em;
+}
+
+.timeline-project-label:first-child {
+  margin-top: 0;
+}
+
 .timeline-tags {
   display: flex;
   flex-wrap: wrap;
@@ -1030,7 +1067,12 @@ footer {
           <p class="timeline-date">May 2025 &mdash; Present</p>
           <h3 class="timeline-role">AI Solution Lead</h3>
           <p class="timeline-org">Littles Lawyers</p>
-          <p class="timeline-desc">Led architecture and delivery of enterprise AI search and chatbot solutions, combining Azure AI Search, vector retrieval, and metadata-driven ranking. Delivered production-grade RAG architecture using Pinecone. Engineered Azure Cosmos DB knowledge graph solutions to model client accident timelines. Established scalable document ingestion, ETL, and AI classification workflows using Azure Document Intelligence.</p>
+          <div class="timeline-desc"><ul>
+            <li>Led the architecture and delivery of enterprise AI search and chatbot solutions, combining Azure AI Search, vector retrieval, and metadata-driven ranking to enhance knowledge discovery across internal systems</li>
+            <li>Delivered a production-grade RAG architecture using Pinecone and internal data pipelines to generate evidence-based chatbot responses aligned with legal and operational requirements</li>
+            <li>Established scalable document ingestion, ETL, and AI classification workflows using Azure Document Intelligence, improving unstructured data extraction and downstream compliance and retrieval capabilities</li>
+            <li>Engineered Azure Cosmos DB knowledge graph solutions to model client accident timelines, linking key employment and payslip events to strengthen case analysis and evidentiary review</li>
+          </ul></div>
           <div class="timeline-tags">
             <span class="tag">Azure AI Search</span>
             <span class="tag">Pinecone</span>
@@ -1048,7 +1090,15 @@ footer {
           <p class="timeline-date">Jan 2025 &mdash; May 2025</p>
           <h3 class="timeline-role">Senior AI / Data Scientist</h3>
           <p class="timeline-org">Queensland Health &mdash; University of Queensland (Co-joint)</p>
-          <p class="timeline-desc">Project "Smart Hub": Led QLD clinical data mapping into the OMOP standard data model (SQL). Supported research and implementation of native Gen AI model with GPT-2 trained on OMOP standard data (PyTorch). Guided ethics and governance processes for advanced analytics implementation.</p>
+          <div class="timeline-desc">
+            <p class="timeline-project-label">Project "Smart Hub"</p>
+            <ul>
+              <li>Contributed to the Smart Hub project by leading QLD clinical data mapping into the OMOP standard data model (SQL)</li>
+              <li>Supported the research and implementation of the native Gen AI model with GPT-2, trained by the OMOP standard data (PyTorch)</li>
+              <li>Collaborated with stakeholders to identify data requirements and deliver tailored solutions</li>
+              <li>Guided ethics and governance processes to facilitate data access for the implementation of advanced analytics in Smart Hub</li>
+            </ul>
+          </div>
           <div class="timeline-tags">
             <span class="tag">OMOP</span>
             <span class="tag">PyTorch</span>
@@ -1064,7 +1114,21 @@ footer {
           <p class="timeline-date">Nov 2023 &mdash; Dec 2024</p>
           <h3 class="timeline-role">Senior AI / Data Scientist / Advanced Analytics</h3>
           <p class="timeline-org">Queensland Government &mdash; Customer and Digital Group</p>
-          <p class="timeline-desc">Project "QChat": Implemented the Gen AI chatbot for QLD Government using Azure OpenAI API, Node.js, Next.js, and TypeScript. Integrated guardrails for safe and ethical AI use. Built monitoring with Azure Insight Telemetry. Project "Insight Engine": Designed and deployed a Gen AI RAG-based application using LlamaIndex, Azure Function Apps, Cognitive Search, and Cosmos DB. Created knowledge graphs in NetworkX with community detection for strategic foresight scenarios.</p>
+          <div class="timeline-desc">
+            <p class="timeline-project-label">Project "QChat"</p>
+            <ul>
+              <li>Implemented the Gen AI chatbot "QChat" for QLD Government (Azure OpenAI API, Node.js, Next.js and TypeScript)</li>
+              <li>Successfully integrated guardrails for the safe and ethical use of AI for public servants</li>
+              <li>Implemented monitoring algorithm using Azure Insight Telemetry for tracking resources usage</li>
+            </ul>
+            <p class="timeline-project-label">Project "Insight Engine"</p>
+            <ul>
+              <li>Gathered business requirements to develop a Gen AI solution aimed at guiding future strategic planning in QLD</li>
+              <li>Designed and implemented a Proof of Concept (PoC) and full deployment of a Gen AI RAG-based application (LlamaIndex)</li>
+              <li>Successfully implemented the AI solution using Microsoft Azure Function Apps, Azure Cognitive Search and Cosmos DB, ensuring scalable and efficient performance</li>
+              <li>Created knowledge graphs in NetworkX and applied clustering techniques (community detection) to create future strategic scenarios for QLD</li>
+            </ul>
+          </div>
           <div class="timeline-tags">
             <span class="tag">Azure OpenAI</span>
             <span class="tag">LlamaIndex</span>
@@ -1083,7 +1147,14 @@ footer {
           <p class="timeline-date">Nov 2023 &mdash; Mar 2024</p>
           <h3 class="timeline-role">ML Scientist / Data Scientist</h3>
           <p class="timeline-org">University of Queensland &mdash; Centre for Health Services Research</p>
-          <p class="timeline-desc">Project "Infection Prediction": Led design, development, and validation of an XGBoost model to predict catheter-related infection risks. Employed feature engineering and Bayesian hyperparameter tuning. Deployed final ML model to cloud.</p>
+          <div class="timeline-desc">
+            <p class="timeline-project-label">Project "Infection Prediction"</p>
+            <ul>
+              <li>Led the design, development, and validation of an XGBoost model to predict catheter-related infection risks, contributing to improved patient safety and proactive infection control (Scikit-Learn, Pandas and MLflow)</li>
+              <li>Employed data preprocessing techniques, feature engineering, and hyperparameter tuning (Bayesian) to enhance model accuracy</li>
+              <li>Deployed final ML model to cloud</li>
+            </ul>
+          </div>
           <div class="timeline-tags">
             <span class="tag">XGBoost</span>
             <span class="tag">Scikit-Learn</span>
@@ -1099,7 +1170,15 @@ footer {
           <p class="timeline-date">Jul 2020 &mdash; Feb 2022</p>
           <h3 class="timeline-role">Senior Software Developer</h3>
           <p class="timeline-org">Queensland Health</p>
-          <p class="timeline-desc">Project "QUIET" (Queensland Integrated Element Tracker): Developed .NET application to manage data governance, data dictionary, data view, data modelling, decision support, and data catalogue of QLD Health Electronic Medical Records. Designed database schema in Azure SQL Database.</p>
+          <div class="timeline-desc">
+            <p class="timeline-project-label">Project "QUIET" (Queensland Integrated Element Tracker)</p>
+            <ul>
+              <li>Developed .NET app to manage data governance, data dictionary, data view, data modelling, decision support and data catalogue of QLD Health Electronic Medical Records</li>
+              <li>Developed database schema in Azure SQL Database</li>
+              <li>Maintained version control of the source code using GitHub with other developers in the team</li>
+              <li>Prepared and maintained detailed documentation throughout the development lifecycle, including user manuals, technical specifications, and release notes</li>
+            </ul>
+          </div>
           <div class="timeline-tags">
             <span class="tag">.NET</span>
             <span class="tag">Azure SQL</span>
@@ -1115,7 +1194,18 @@ footer {
           <p class="timeline-date">Feb 2016 &mdash; Jun 2020</p>
           <h3 class="timeline-role">Software Developer &amp; Lead Data Migration Engineer</h3>
           <p class="timeline-org">Magentus (formerly Genie Solutions)</p>
-          <p class="timeline-desc">Full-stack developer on the Genie clinical application in Agile environment. Lead data migration engineer responsible for migrating legacy clinical data to the cloud. Mentored junior developers on best practices and code reviews.</p>
+          <div class="timeline-desc">
+            <p class="timeline-project-label">Project "Genie Application"</p>
+            <ul>
+              <li>Full-stack developer on the Genie application in an Agile development environment</li>
+              <li>Worked in agile development methodology for writing code, test units and code maintenance</li>
+            </ul>
+            <p class="timeline-project-label">Project "Legacy Data Migration"</p>
+            <ul>
+              <li>Lead data migration engineer, responsible for migrating legacy clinical data to the cloud</li>
+              <li>Mentored junior developers, providing technical guidance and support on development best practices, code reviews, and quality assurance</li>
+            </ul>
+          </div>
           <div class="timeline-tags">
             <span class="tag">Full-Stack</span>
             <span class="tag">Data Migration</span>
@@ -1130,7 +1220,11 @@ footer {
           <p class="timeline-date">Aug 2014 &mdash; Dec 2015</p>
           <h3 class="timeline-role">Junior Software Developer</h3>
           <p class="timeline-org">Queensland University of Technology</p>
-          <p class="timeline-desc">Developed and validated a comparison application for DNA sequences in Java. Researched algorithms for assessing DNA sequence patterns and variations for large-scale dataset analysis.</p>
+          <div class="timeline-desc"><ul>
+            <li>Worked as a research assistant, focusing on the development and validation of a comparison application for DNA sequences in Java</li>
+            <li>Conducted extensive research on various algorithms and techniques for assessing DNA sequences to identify patterns and variations</li>
+            <li>Collaborated with the research team to design and implement the software tool, ensuring accuracy, scalability, and performance for analysing large datasets of DNA sequences</li>
+          </ul></div>
           <div class="timeline-tags">
             <span class="tag">Java</span>
             <span class="tag">Bioinformatics</span>
