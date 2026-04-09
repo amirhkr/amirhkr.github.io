@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amir Kamel Rahimi, PhD — Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   BLUEPRINT THEME — RESET & BASE
+   ============================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-deep: #0a1628;
+  --bg-mid: #0d1b2a;
+  --bg-panel: rgba(13, 27, 42, 0.85);
+  --cyan: #00d4ff;
+  --cyan-dim: rgba(0, 212, 255, 0.35);
+  --cyan-faint: rgba(0, 212, 255, 0.08);
+  --cyan-glow: rgba(0, 212, 255, 0.15);
+  --white: #e8f0f8;
+  --white-dim: rgba(232, 240, 248, 0.55);
+  --grid-line: rgba(0, 212, 255, 0.06);
+  --grid-line-major: rgba(0, 212, 255, 0.12);
+  --line-dash: rgba(0, 212, 255, 0.25);
+  --accent-warm: #ff6b35;
+  --font-display: 'Rajdhani', 'Barlow', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-deep);
+  color: var(--white);
+  line-height: 1.7;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ============================================
+   BLUEPRINT GRID BACKGROUND
+   ============================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    /* Minor grid */
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    /* Major grid */
+    linear-gradient(var(--grid-line-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-major) 1px, transparent 1px);
+  background-size:
+    20px 20px,
+    20px 20px,
+    100px 100px,
+    100px 100px;
+  background-position: -1px -1px;
+}
+
+/* Subtle radial vignette */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 30%, transparent 40%, var(--bg-deep) 100%);
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--cyan-dim); border-radius: 3px; }
+
+/* ============================================
+   GLOBAL LAYOUT
+   ============================================ */
+.blueprint-content {
+  position: relative;
+  z-index: 1;
+}
+
+section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+a {
+  color: var(--cyan);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover { color: #fff; }
+
+/* ============================================
+   CROSSHAIR SECTION MARKER
+   ============================================ */
+.crosshair {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.crosshair-icon {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.crosshair-icon::before,
+.crosshair-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--cyan);
+}
+
+.crosshair-icon::before {
+  width: 28px;
+  height: 1px;
+  top: 50%;
+  left: 0;
+}
+
+.crosshair-icon::after {
+  width: 1px;
+  height: 28px;
+  left: 50%;
+  top: 0;
+}
+
+.crosshair-circle {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid var(--cyan);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.crosshair h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.crosshair-line {
+  flex: 1;
+  height: 1px;
+  background: var(--cyan-dim);
+  position: relative;
+}
+
+.crosshair-line::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--cyan);
+  transform: rotate(45deg);
+}
+
+/* ============================================
+   MEASUREMENT ANNOTATION
+   ============================================ */
+.measure {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--cyan-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   REVEAL ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ============================================
+   NAV
+   ============================================ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10, 22, 40, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--grid-line-major);
+  transition: padding 0.3s;
+}
+
+nav.scrolled { padding: 10px 24px; }
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--cyan);
+  letter-spacing: 2px;
+}
+
+.nav-logo span { color: var(--white-dim); }
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--cyan);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover { color: var(--cyan); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--cyan-dim);
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--cyan);
+  margin: 4px 0;
+  transition: 0.3s;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+.hero-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--cyan-dim);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.hero-label::before {
+  content: '// ';
+  color: var(--cyan);
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.hero-name .surname {
+  color: var(--cyan);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  color: var(--white-dim);
+  letter-spacing: 2px;
+  margin-bottom: 28px;
+  border-left: 2px solid var(--cyan);
+  padding-left: 16px;
+}
+
+.hero-tagline {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--white-dim);
+  max-width: 600px;
+  line-height: 1.8;
+  margin-bottom: 36px;
+}
+
+.hero-coords {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+.hero-coord {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-coord .measure { margin-bottom: 2px; }
+
+.hero-coord-value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cyan);
+  line-height: 1;
+}
+
+.hero-coord-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--white-dim);
+  letter-spacing: 1px;
+}
+
+/* Hero schematic decorations */
+.hero-schematic {
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 400px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.hero-circle-outer {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border: 1px dashed var(--cyan);
+  border-radius: 50%;
+  top: 20px;
+  left: 20px;
+  animation: rotate-slow 60s linear infinite;
+}
+
+.hero-circle-inner {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 1px solid var(--cyan);
+  border-radius: 50%;
+  top: 100px;
+  left: 100px;
+  animation: rotate-slow 40s linear infinite reverse;
+}
+
+.hero-crosshair-h, .hero-crosshair-v {
+  position: absolute;
+  background: var(--cyan);
+}
+
+.hero-crosshair-h {
+  width: 400px;
+  height: 1px;
+  top: 200px;
+  left: 0;
+}
+
+.hero-crosshair-v {
+  width: 1px;
+  height: 400px;
+  left: 200px;
+  top: 0;
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Dashed connector from hero to next section */
+.section-connector {
+  width: 1px;
+  height: 80px;
+  margin: 0 auto;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--cyan-dim) 0px,
+    var(--cyan-dim) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  position: relative;
+}
+
+.section-connector::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -3px;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--cyan);
+  border-bottom: 1.5px solid var(--cyan);
+  transform: rotate(45deg);
+}
+
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
+#about {
+  padding-top: 40px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 60px;
+  align-items: start;
+}
+
+.about-text {
+  font-size: 1.02rem;
+  color: var(--white-dim);
+  line-height: 1.85;
+}
+
+.about-text strong {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.about-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-left: 1px dashed var(--cyan-dim);
+  padding-left: 32px;
+}
+
+.stat-block {
+  position: relative;
+}
+
+.stat-block::before {
+  content: '';
+  position: absolute;
+  left: -36px;
+  top: 12px;
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid var(--cyan);
+  background: var(--bg-deep);
+  border-radius: 50%;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--cyan);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--white-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ============================================
+   EXPERIENCE SECTION — NODE DIAGRAM
+   ============================================ */
+#experience {
+  background: linear-gradient(180deg, transparent 0%, var(--cyan-faint) 50%, transparent 100%);
+}
+
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+/* Vertical timeline line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--cyan-dim) 0px,
+    var(--cyan-dim) 8px,
+    transparent 8px,
+    transparent 14px
+  );
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 48px;
+  padding: 28px 32px;
+  border: 1px solid var(--cyan-dim);
+  border-radius: 2px;
+  background: var(--bg-panel);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.timeline-item:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 30px var(--cyan-glow), inset 0 0 30px rgba(0,212,255,0.03);
+}
+
+/* Node circle on timeline */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -37px;
+  top: 32px;
+  width: 13px;
+  height: 13px;
+  border: 2px solid var(--cyan);
+  background: var(--bg-deep);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* Connector line from node to card */
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 38px;
+  width: 24px;
+  height: 1px;
+  background: var(--cyan-dim);
+}
+
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cyan);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.timeline-role {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+
+.timeline-org {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--white-dim);
+  margin-bottom: 12px;
+}
+
+.timeline-desc {
+  font-size: 0.92rem;
+  color: var(--white-dim);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border: 1px solid var(--cyan-dim);
+  color: var(--cyan);
+  border-radius: 1px;
+  background: rgba(0, 212, 255, 0.04);
+  white-space: nowrap;
+}
+
+/* ============================================
+   PUBLICATIONS
+   ============================================ */
+.pub-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.pub-item {
+  position: relative;
+  padding: 24px 28px;
+  border: 1px solid rgba(0, 212, 255, 0.12);
+  border-left: 3px solid var(--cyan);
+  background: var(--bg-panel);
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.pub-item:hover {
+  border-color: var(--cyan);
+  transform: translateX(4px);
+}
+
+.pub-number {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--cyan-dim);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.pub-title {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.pub-title a {
+  color: var(--white);
+  border-bottom: 1px dashed var(--cyan-dim);
+}
+
+.pub-title a:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+
+.pub-authors {
+  font-size: 0.85rem;
+  color: var(--white-dim);
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.pub-authors strong {
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.pub-journal {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cyan-dim);
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   SKILLS — TECHNICAL DRAWING STYLE
+   ============================================ */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+}
+
+.skill-group {
+  padding: 24px;
+  border: 1px dashed var(--cyan-dim);
+  position: relative;
+  background: var(--bg-panel);
+}
+
+.skill-group::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  border-top: 1.5px solid var(--cyan);
+  border-left: 1.5px solid var(--cyan);
+}
+
+.skill-group::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 1.5px solid var(--cyan);
+  border-right: 1.5px solid var(--cyan);
+}
+
+.skill-group-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cyan);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--cyan-faint);
+}
+
+.skill-group-title::before {
+  content: '> ';
+}
+
+.skill-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-item {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--white-dim);
+  padding: 4px 10px;
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  background: rgba(0, 212, 255, 0.03);
+  border-radius: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.skill-item:hover {
+  color: var(--white);
+  border-color: var(--cyan-dim);
+}
+
+/* ============================================
+   EDUCATION
+   ============================================ */
+.edu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.edu-card {
+  padding: 28px 32px;
+  border: 1px solid var(--cyan-dim);
+  position: relative;
+  background: var(--bg-panel);
+}
+
+/* Measurement annotation on top */
+.edu-card::before {
+  content: attr(data-years);
+  position: absolute;
+  top: -10px;
+  right: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--cyan-dim);
+  letter-spacing: 1px;
+  background: var(--bg-deep);
+  padding: 0 6px;
+}
+
+.edu-degree {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.edu-school {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}
+
+.edu-thesis {
+  font-size: 0.88rem;
+  color: var(--white-dim);
+  font-style: italic;
+  border-left: 2px dashed var(--cyan-dim);
+  padding-left: 12px;
+  line-height: 1.6;
+}
+
+/* ============================================
+   CONTACT
+   ============================================ */
+#contact {
+  border-top: 1px solid var(--grid-line-major);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border: 1px solid rgba(0, 212, 255, 0.12);
+  background: var(--bg-panel);
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.contact-card:hover {
+  border-color: var(--cyan);
+  transform: translateY(-2px);
+}
+
+.contact-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.contact-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--cyan-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.contact-value {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--white);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  text-align: center;
+  padding: 40px 24px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--white-dim);
+  letter-spacing: 1px;
+  border-top: 1px dashed var(--cyan-dim);
+}
+
+footer .coordinates {
+  color: var(--cyan-dim);
+  margin-top: 6px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-stats {
+    border-left: none;
+    padding-left: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--cyan-dim);
+  }
+
+  .stat-block::before { display: none; }
+
+  .edu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-schematic { display: none; }
+}
+
+@media (max-width: 680px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: rgba(10, 22, 40, 0.97);
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--cyan-dim);
+    gap: 16px;
+  }
+
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: block; }
+
+  section { padding: 60px 0; }
+
+  .timeline { padding-left: 28px; }
+  .timeline::before { left: 6px; }
+  .timeline-item::before { left: -27px; width: 11px; height: 11px; }
+  .timeline-item::after { left: -16px; width: 16px; }
+  .timeline-item { padding: 20px; }
+
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   SCANLINE FLICKER (subtle)
+   ============================================ */
+@keyframes scanline {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+.scanline-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.scanline-overlay::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(transparent, rgba(0, 212, 255, 0.03), transparent);
+  animation: scanline 8s linear infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="scanline-overlay"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-logo">AKR<span>.blueprint</span></div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="blueprint-content">
+
+  <!-- ===================== HERO ===================== -->
+  <section id="hero">
+    <div class="hero-schematic">
+      <div class="hero-circle-outer"></div>
+      <div class="hero-circle-inner"></div>
+      <div class="hero-crosshair-h"></div>
+      <div class="hero-crosshair-v"></div>
+    </div>
+    <div class="container">
+      <div class="hero-grid reveal">
+        <div>
+          <div class="hero-label">Designation</div>
+          <h1 class="hero-name">Amir<br><span class="surname">Kamel Rahimi</span></h1>
+          <div class="hero-title">PhD &mdash; AI/ML Scientist &amp; Engineer</div>
+          <p class="hero-tagline">
+            Transforming clinical decision-making through intelligent systems. Over a decade of experience bridging cutting-edge research and production-grade engineering&mdash;from hospital AI to government-scale generative platforms.
+          </p>
+          <div class="hero-coords">
+            <div class="hero-coord reveal reveal-delay-1">
+              <span class="measure">ref.001</span>
+              <span class="hero-coord-value">10+</span>
+              <span class="hero-coord-label">Years Experience</span>
+            </div>
+            <div class="hero-coord reveal reveal-delay-2">
+              <span class="measure">ref.002</span>
+              <span class="hero-coord-value">5</span>
+              <span class="hero-coord-label">Publications</span>
+            </div>
+            <div class="hero-coord reveal reveal-delay-3">
+              <span class="measure">ref.003</span>
+              <span class="hero-coord-value">124+</span>
+              <span class="hero-coord-label">Citations</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-connector"></div>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about">
+    <div class="container">
+      <div class="crosshair reveal">
+        <div class="crosshair-icon"><div class="crosshair-circle"></div></div>
+        <h2>About</h2>
+        <div class="crosshair-line"></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            A <strong>researcher and engineer</strong> at the intersection of artificial intelligence and healthcare. I build AI systems for hospitals that improve patient outcomes and develop <strong>generative AI chatbots</strong> for government at scale. My work spans the full pipeline&mdash;from foundational research and model development through to production deployment and stakeholder engagement.
+          </p>
+          <br>
+          <p>
+            With a PhD in AI-driven clinical informatics and deep hands-on experience across cloud platforms, LLM frameworks, and data engineering, I bring <strong>rigorous, research-grounded thinking</strong> to every system I design.
+          </p>
+        </div>
+        <div class="about-stats reveal reveal-delay-1">
+          <div class="stat-block">
+            <div class="stat-value">10+</div>
+            <div class="stat-label">Years of Experience</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-value">5</div>
+            <div class="stat-label">Publications</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-value">124+</div>
+            <div class="stat-label">Citations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-connector"></div>
+
+  <!-- ===================== EXPERIENCE ===================== -->
+  <section id="experience">
+    <div class="container">
+      <div class="crosshair reveal">
+        <div class="crosshair-icon"><div class="crosshair-circle"></div></div>
+        <h2>Experience</h2>
+        <div class="crosshair-line"></div>
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">May 2025 &mdash; Present</div>
+          <div class="timeline-role">AI Solution Lead</div>
+          <div class="timeline-org">Littles Lawyers</div>
+          <div class="timeline-desc">
+            Leading the design and delivery of enterprise AI search and chatbot systems. Architecting RAG pipelines over legal corpora with Cosmos DB knowledge graphs for intelligent, contextual retrieval.
+          </div>
+          <div class="tags">
+            <span class="tag">Azure AI Search</span>
+            <span class="tag">Pinecone</span>
+            <span class="tag">Cosmos DB</span>
+            <span class="tag">RAG</span>
+            <span class="tag">Knowledge Graphs</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">Jan 2025 &mdash; May 2025</div>
+          <div class="timeline-role">Senior AI/Data Scientist</div>
+          <div class="timeline-org">QLD Health &mdash; University of Queensland</div>
+          <div class="timeline-desc">
+            Built "Smart Hub"&mdash;a clinical analytics platform integrating OMOP common data models, GPT-2 based language models, and robust ethics frameworks for responsible AI in healthcare.
+          </div>
+          <div class="tags">
+            <span class="tag">OMOP</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">GPT-2</span>
+            <span class="tag">SQL</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">Nov 2023 &mdash; Dec 2024</div>
+          <div class="timeline-role">Senior AI/Data Scientist</div>
+          <div class="timeline-org">QLD Government &mdash; Customer and Digital Group</div>
+          <div class="timeline-desc">
+            Designed and shipped "QChat"&mdash;a government-wide generative AI chatbot&mdash;and "Insight Engine", an analytics platform for policy analysis. Full-stack LLM engineering from prototype to production.
+          </div>
+          <div class="tags">
+            <span class="tag">Azure OpenAI</span>
+            <span class="tag">LlamaIndex</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">NetworkX</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">Nov 2023 &mdash; Mar 2024</div>
+          <div class="timeline-role">ML Scientist</div>
+          <div class="timeline-org">UQ Centre for Health Services Research</div>
+          <div class="timeline-desc">
+            Developed XGBoost-based infection prediction models for hospital settings, delivering validated pipelines from feature engineering through deployment on AWS SageMaker.
+          </div>
+          <div class="tags">
+            <span class="tag">XGBoost</span>
+            <span class="tag">Scikit-Learn</span>
+            <span class="tag">MLflow</span>
+            <span class="tag">AWS SageMaker</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">Jul 2020 &mdash; Feb 2022</div>
+          <div class="timeline-role">Senior Software Developer</div>
+          <div class="timeline-org">QLD Health</div>
+          <div class="timeline-desc">
+            Built the .NET "QUIET" application&mdash;a quality improvement and event tracking system for Queensland's hospital network.
+          </div>
+          <div class="tags">
+            <span class="tag">.NET</span>
+            <span class="tag">Azure SQL</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">Feb 2016 &mdash; Jun 2020</div>
+          <div class="timeline-role">Developer &amp; Lead Data Migration Specialist</div>
+          <div class="timeline-org">Magentus</div>
+          <div class="timeline-desc">
+            Led large-scale data migration initiatives for healthcare systems, managing teams and delivering AWS-hosted solutions using Agile methodologies.
+          </div>
+          <div class="tags">
+            <span class="tag">AWS</span>
+            <span class="tag">Agile</span>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">Aug 2014 &mdash; Dec 2015</div>
+          <div class="timeline-role">Junior Developer</div>
+          <div class="timeline-org">QUT</div>
+          <div class="timeline-desc">
+            Developed Java-based tools for DNA sequence analysis and bioinformatics research pipelines.
+          </div>
+          <div class="tags">
+            <span class="tag">Java</span>
+            <span class="tag">Bioinformatics</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-connector"></div>
+
+  <!-- ===================== PUBLICATIONS ===================== -->
+  <section id="publications">
+    <div class="container">
+      <div class="crosshair reveal">
+        <div class="crosshair-icon"><div class="crosshair-circle"></div></div>
+        <h2>Publications</h2>
+        <div class="crosshair-line"></div>
+      </div>
+      <div class="pub-list">
+
+        <div class="pub-item reveal">
+          <div class="pub-number">PUB.001 // 2024</div>
+          <div class="pub-title">
+            <a href="https://doi.org/10.2196/50197" target="_blank" rel="noopener">
+              Artificial Intelligence&ndash;Based Clinical Decision Support for Hospital-Acquired Complications: Systematic Review of the Literature
+            </a>
+          </div>
+          <div class="pub-authors">
+            <strong>Kamel Rahimi A</strong>, Ghadimi M, Engstrom C, Lipman J, Luo S, Hines C, Lau E, Shrapnel S
+          </div>
+          <div class="pub-journal">Journal of Medical Internet Research (JMIR), 2024</div>
+        </div>
+
+        <div class="pub-item reveal">
+          <div class="pub-number">PUB.002 // 2023</div>
+          <div class="pub-title">
+            <a href="https://doi.org/10.1186/s12911-023-02237-8" target="_blank" rel="noopener">
+              Machine Learning&ndash;Based Prediction of Hospital-Acquired Complications in Intensive Care Patients
+            </a>
+          </div>
+          <div class="pub-authors">
+            <strong>Kamel Rahimi A</strong>, Ghadimi M, Engstrom C, Lipman J, Luo S, Shrapnel S
+          </div>
+          <div class="pub-journal">BMC Medical Informatics and Decision Making, 2023</div>
+        </div>
+
+        <div class="pub-item reveal">
+          <div class="pub-number">PUB.003 // 2023</div>
+          <div class="pub-title">
+            <a href="https://doi.org/10.1101/2023.03.27.23287553" target="_blank" rel="noopener">
+              Machine Learning Models for Prediction of Hospital-Acquired Infections: A Systematic Review and Meta-Analysis
+            </a>
+          </div>
+          <div class="pub-authors">
+            <strong>Kamel Rahimi A</strong>, Ghadimi M, Engstrom C, Lipman J, Luo S, Shrapnel S
+          </div>
+          <div class="pub-journal">medRxiv, 2023</div>
+        </div>
+
+        <div class="pub-item reveal">
+          <div class="pub-number">PUB.004 // 2022</div>
+          <div class="pub-title">
+            <a href="https://doi.org/10.1016/j.ijmedinf.2022.104864" target="_blank" rel="noopener">
+              A Systematic Review of Clinical Decision Support Systems for Hospital-Acquired Pressure Injuries
+            </a>
+          </div>
+          <div class="pub-authors">
+            <strong>Kamel Rahimi A</strong>, Ghadimi M, Engstrom C, Lipman J, Luo S, Shrapnel S
+          </div>
+          <div class="pub-journal">International Journal of Medical Informatics, 2022</div>
+        </div>
+
+        <div class="pub-item reveal">
+          <div class="pub-number">PUB.005 // 2022</div>
+          <div class="pub-title">
+            <a href="https://doi.org/10.1055/a-1911-6411" target="_blank" rel="noopener">
+              Clinical Decision Support Systems for Hospital-Acquired Venous Thromboembolism: A Systematic Review
+            </a>
+          </div>
+          <div class="pub-authors">
+            <strong>Kamel Rahimi A</strong>, Ghadimi M, Engstrom C, Lipman J, Luo S, Shrapnel S
+          </div>
+          <div class="pub-journal">Applied Clinical Informatics, 2022</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-connector"></div>
+
+  <!-- ===================== SKILLS ===================== -->
+  <section id="skills">
+    <div class="container">
+      <div class="crosshair reveal">
+        <div class="crosshair-icon"><div class="crosshair-circle"></div></div>
+        <h2>Skills</h2>
+        <div class="crosshair-line"></div>
+      </div>
+      <div class="skills-grid">
+
+        <div class="skill-group reveal">
+          <div class="skill-group-title">ML / AI</div>
+          <div class="skill-items">
+            <span class="skill-item">PyTorch</span>
+            <span class="skill-item">TensorFlow</span>
+            <span class="skill-item">Scikit-Learn</span>
+            <span class="skill-item">XGBoost</span>
+            <span class="skill-item">NLP</span>
+            <span class="skill-item">Computer Vision</span>
+            <span class="skill-item">MLflow</span>
+            <span class="skill-item">Hugging Face</span>
+            <span class="skill-item">spaCy</span>
+            <span class="skill-item">ONNX</span>
+          </div>
+        </div>
+
+        <div class="skill-group reveal reveal-delay-1">
+          <div class="skill-group-title">Gen AI / LLMs</div>
+          <div class="skill-items">
+            <span class="skill-item">Azure OpenAI</span>
+            <span class="skill-item">GPT-4</span>
+            <span class="skill-item">LlamaIndex</span>
+            <span class="skill-item">LangChain</span>
+            <span class="skill-item">RAG</span>
+            <span class="skill-item">Prompt Engineering</span>
+            <span class="skill-item">Fine-tuning</span>
+            <span class="skill-item">Vector DBs</span>
+            <span class="skill-item">Semantic Search</span>
+          </div>
+        </div>
+
+        <div class="skill-group reveal reveal-delay-2">
+          <div class="skill-group-title">Cloud</div>
+          <div class="skill-items">
+            <span class="skill-item">Azure</span>
+            <span class="skill-item">AWS</span>
+            <span class="skill-item">SageMaker</span>
+            <span class="skill-item">Cosmos DB</span>
+            <span class="skill-item">Azure SQL</span>
+            <span class="skill-item">Docker</span>
+            <span class="skill-item">Kubernetes</span>
+            <span class="skill-item">CI/CD</span>
+            <span class="skill-item">Terraform</span>
+          </div>
+        </div>
+
+        <div class="skill-group reveal reveal-delay-3">
+          <div class="skill-group-title">Development</div>
+          <div class="skill-items">
+            <span class="skill-item">Python</span>
+            <span class="skill-item">JavaScript</span>
+            <span class="skill-item">TypeScript</span>
+            <span class="skill-item">Next.js</span>
+            <span class="skill-item">React</span>
+            <span class="skill-item">.NET / C#</span>
+            <span class="skill-item">Java</span>
+            <span class="skill-item">SQL</span>
+            <span class="skill-item">Git</span>
+            <span class="skill-item">REST APIs</span>
+            <span class="skill-item">NetworkX</span>
+            <span class="skill-item">Agile</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-connector"></div>
+
+  <!-- ===================== EDUCATION ===================== -->
+  <section id="education">
+    <div class="container">
+      <div class="crosshair reveal">
+        <div class="crosshair-icon"><div class="crosshair-circle"></div></div>
+        <h2>Education</h2>
+        <div class="crosshair-line"></div>
+      </div>
+      <div class="edu-grid">
+
+        <div class="edu-card reveal" data-years="2019 - 2024">
+          <div class="edu-degree">Doctor of Philosophy (PhD)</div>
+          <div class="edu-school">The University of Queensland</div>
+          <div class="edu-thesis">
+            Thesis: "Artificial intelligence to improve clinical outcomes in hospitals"
+          </div>
+        </div>
+
+        <div class="edu-card reveal reveal-delay-1" data-years="2012 - 2013">
+          <div class="edu-degree">Master of Science (MSc)</div>
+          <div class="edu-school">Queensland University of Technology (QUT)</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-connector"></div>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact">
+    <div class="container">
+      <div class="crosshair reveal">
+        <div class="crosshair-icon"><div class="crosshair-circle"></div></div>
+        <h2>Contact</h2>
+        <div class="crosshair-line"></div>
+      </div>
+      <div class="contact-grid">
+
+        <a href="mailto:amir8.au@gmail.com" class="contact-card reveal">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">amir8.au@gmail.com</div>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/amirkamel/" target="_blank" rel="noopener" class="contact-card reveal reveal-delay-1">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <div class="contact-value">amirkamel</div>
+          </div>
+        </a>
+
+        <a href="https://github.com/amirhkr" target="_blank" rel="noopener" class="contact-card reveal reveal-delay-2">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">GitHub</div>
+            <div class="contact-value">amirhkr</div>
+          </div>
+        </a>
+
+        <a href="https://scholar.google.com/citations?user=tNyUi2wAAAAJ&hl=en" target="_blank" rel="noopener" class="contact-card reveal reveal-delay-3">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3z"/><path d="M12 13.5L5.74 10 12 6.72 18.26 10 12 13.5z"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Google Scholar</div>
+            <div class="contact-value">Amir Kamel Rahimi</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>&copy; 2026 Amir Kamel Rahimi. All rights reserved.</div>
+    <div class="coordinates">// blueprint.v1 &mdash; built with precision</div>
+  </footer>
+
+</div>
+
+<script>
+/* ============================================
+   SCROLL REVEAL
+   ============================================ */
+(function() {
+  const reveals = document.querySelectorAll('.reveal');
+
+  function checkReveal() {
+    const windowH = window.innerHeight;
+    const triggerPoint = windowH * 0.88;
+
+    reveals.forEach(function(el) {
+      const top = el.getBoundingClientRect().top;
+      if (top < triggerPoint) {
+        el.classList.add('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkReveal, { passive: true });
+  window.addEventListener('resize', checkReveal);
+  // Initial check
+  checkReveal();
+})();
+
+/* ============================================
+   NAV SCROLL EFFECT
+   ============================================ */
+(function() {
+  const nav = document.getElementById('mainNav');
+
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+})();
+
+/* ============================================
+   MOBILE NAV TOGGLE
+   ============================================ */
+(function() {
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+
+  toggle.addEventListener('click', function() {
+    links.classList.toggle('open');
+  });
+
+  // Close menu on link click
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      links.classList.remove('open');
+    });
+  });
+})();
+
+/* ============================================
+   SMOOTH SCROLL FOR NAV LINKS
+   ============================================ */
+(function() {
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        var offset = 70;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
