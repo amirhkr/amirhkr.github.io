@@ -458,9 +458,7 @@ nav .container {
 /* ===== ABOUT ===== */
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 32px;
-  align-items: start;
 }
 
 .about-text {
@@ -471,6 +469,9 @@ nav .container {
   margin-bottom: 16px;
   color: rgba(232, 224, 240, 0.92);
   font-size: 1rem;
+  text-align: justify;
+  /* full-width justified lines open ugly gaps without hyphenation */
+  hyphens: auto;
 }
 
 .about-text p:last-child {
@@ -939,7 +940,6 @@ footer {
 
   .hero-card { padding: 40px 28px; }
 
-  .about-grid { grid-template-columns: 1fr; }
   .about-stats { grid-template-columns: repeat(3, 1fr); }
 
   .timeline::before { left: 16px; }
@@ -1033,24 +1033,24 @@ footer {
       <p class="section-subtitle">10+ years delivering advanced analytics, ML, and Gen AI solutions across public and private sectors.</p>
     </div>
     <div class="about-grid">
-      <div class="about-text glass reveal">
-        <p>PhD-qualified AI/ML engineer with 10 years of industry experience delivering advanced analytics, machine learning, Generative AI, and cloud-based AI solutions. Strong background in designing, prototyping, and deploying scalable, data-driven solutions that address complex business challenges.</p>
-        <p>Experienced across the full AI lifecycle &mdash; from model development through to production deployment, cloud integration, and enterprise adoption. Core expertise includes RAG architectures, agentic systems, knowledge graphs, MLOps, and end-to-end AI solution delivery on Azure and GCP.</p>
-        <p>Currently leading AI solutions at Littles Lawyers, architecting enterprise search and chatbot systems with vector retrieval and knowledge graphs. Previously shipped Gen AI chatbots serving the entire Queensland Government.</p>
-      </div>
-      <div class="about-stats reveal reveal-delay-1">
+      <div class="about-stats reveal">
         <div class="stat-card glass">
           <div class="stat-number">10+</div>
           <div class="stat-label">Years in Industry</div>
         </div>
         <div class="stat-card glass">
-          <div class="stat-number">Full</div>
-          <div class="stat-label">AI Lifecycle</div>
+          <div class="stat-number">Gen AI</div>
+          <div class="stat-label">Shipped to Production</div>
         </div>
         <div class="stat-card glass">
           <div class="stat-number">PhD</div>
           <div class="stat-label">Applied AI &amp; ML</div>
         </div>
+      </div>
+      <div class="about-text glass reveal reveal-delay-1">
+        <p>PhD-qualified AI/ML engineer with 10 years of industry experience delivering advanced analytics, machine learning, Generative AI, and cloud-based AI solutions. Strong background in designing, prototyping, and deploying scalable, data-driven solutions that address complex business challenges.</p>
+        <p>Experienced across the full AI lifecycle &mdash; from model development through to production deployment, cloud integration, and enterprise adoption. Core expertise includes RAG architectures, agentic systems, knowledge graphs, MLOps, and end-to-end AI solution delivery on Azure and GCP.</p>
+        <p>Currently leading AI solutions at Littles Lawyers, architecting enterprise search and chatbot systems with vector retrieval and knowledge graphs. Previously shipped Gen AI chatbots serving the entire Queensland Government.</p>
       </div>
     </div>
   </div>
